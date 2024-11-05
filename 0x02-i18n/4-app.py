@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-'''Task 2: Get locale from request
+'''Task 4: Force locale with URL parameter
 '''
 
 from flask import Flask, render_template, request
@@ -28,6 +28,9 @@ def get_locale() -> str:
     Returns:
         str: best match
     """
+    locale = request.args.get('locale')
+    if locale in app.config['LANGUAGES']:
+        return locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
@@ -38,7 +41,7 @@ def index() -> str:
     Returns:
         html: homepage
     '''
-    return render_template("3-index.html")
+    return render_template("4-index.html")
 
 
 if __name__ == "__main__":
